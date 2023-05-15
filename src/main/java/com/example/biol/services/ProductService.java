@@ -18,8 +18,7 @@ public class ProductService {
 
 
     public List<Product> listProducts(String title) {
-        List<Product> products = productRepository.findAll();
-        if (title != "") return productRepository.findByTitle(title);
+        if (title != null && !title.isEmpty()) return productRepository.findByTitle(title);
         return productRepository.findAll();
     }
 
