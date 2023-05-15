@@ -1,36 +1,38 @@
 package com.example.biol.services;
 
 import com.example.biol.models.Product;
+import com.example.biol.repositories.ProductRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
+@RequiredArgsConstructor
 public class ProductService {
-    private List<Product> productList = new ArrayList<>();
-    private long ID = 0;
-    {
-        productList.add(new Product(++ID, "P", "r", 1, "d", "r"));
-        productList.add(new Product(++ID, "P2", "r", 2, "d", "r"));
 
+    private final ProductRepository productRepository;
+
+
+    public List<Product> listProducts(String title) {
+        List<Product> products = productRepository.findAll();
+        if (title != "") return productRepository.findByTitle(title);
+        return productRepository.findAll();
     }
 
-    public List<Product> listProducts() { return productList; }
-
     public void saveProduct(Product product) {
-        product.setId(++ID);
-        productList.add(product);
+        log.info("Saving new {}", product);
+        productRepository.save(product);
     }
 
     public void deleteProduct(Long id) {
-        productList.removeIf(product -> product.getId().equals(id));
+        productRepository.deleteById(id);
     }
 
     public Product getProductById(Long id) {
-        for (Product product : productList) {
-            if (product.getId().equals(id)) return product;
-        }
-        return null;
+        return productRepository.findById(id).orElse(null);
     }
 }
