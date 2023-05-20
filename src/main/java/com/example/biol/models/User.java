@@ -7,9 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -19,6 +17,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String email;
+    private String phoneNumber;
     private String name;
     private boolean active;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -31,8 +30,12 @@ public class User implements UserDetails {
     joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+    private List<Product> productList = new ArrayList<>();
     private LocalDateTime dateOfCreated;
 
+
+    @PrePersist
     private void init() {
         dateOfCreated = LocalDateTime.now();
     }
