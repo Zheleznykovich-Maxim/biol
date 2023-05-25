@@ -19,10 +19,11 @@ public class User implements UserDetails {
     private String email;
     private String phoneNumber;
     private String name;
-    private boolean active;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "image_id")
     private Image avatar;
+    private boolean active;
+    private String activationCode;
     @Column(length = 1000)
     private String password;
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
@@ -30,14 +31,14 @@ public class User implements UserDetails {
     joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,
+            mappedBy = "user")
     private List<Product> productList = new ArrayList<>();
-    private LocalDateTime dateOfCreated;
 
-
-    @PrePersist
-    private void init() {
-        dateOfCreated = LocalDateTime.now();
+    public void addProductToUser(Product product) {
+        product.setUser(this);
+        productList.add(product);
     }
 
     //Security
