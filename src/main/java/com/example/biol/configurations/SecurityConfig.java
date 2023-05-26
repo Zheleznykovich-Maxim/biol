@@ -30,9 +30,10 @@ public class SecurityConfig  {
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin((form) -> form
+                .formLogin()
                 .loginPage("/login")
-                .permitAll())
+                .permitAll()
+                .and()
                 .logout()
                 .permitAll()
 

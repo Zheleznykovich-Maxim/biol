@@ -5,9 +5,9 @@
 <p class="fst-italic text-center fs-4">${message!""}</p>
 <form action="/login " method="post">
     <div class="form-group">
-        <label for="email">Электронная почта</label>
-        <input type="email" class="form-control <#if RequestParameters.error??>is-invalid</#if>" id="email" name="username">
-        <div id="email" class="invalid-feedback">
+        <label for="name">Электронная почта</label>
+        <input type="text" class="form-control <#if RequestParameters.error??>is-invalid</#if>" id="name" name="username">
+        <div id="name" class="invalid-feedback">
             Неверныя электронная почта
         </div>
     </div>

@@ -78,8 +78,10 @@ public class UserService {
     }
 
     public User getUserByPrincipal(Principal principal) {
-        if (principal == null) return new User();
-        return userRepository.findByEmail(principal.getName());
+        if (principal == null) {
+            return new User();
+        }
+        return userRepository.findByUsername(principal.getName());
     }
 
     public boolean activateUser(String code) {

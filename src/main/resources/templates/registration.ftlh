@@ -4,8 +4,8 @@
 <hr>
 <form action="/registration" method="post">
     <div class="form-group">
-        <label for="name">Имя пользователя</label>
-        <input type="text" class="form-control" required id="name" name="name">
+        <label for="username">Имя пользователя</label>
+        <input type="text" class="form-control" required id="username" name="username">
     </div>
     <div class="form-group">
         <label for="email">Электронная почта</label>
