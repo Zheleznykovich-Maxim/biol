@@ -8,7 +8,7 @@
          style="border:2px solid black; border-radius: 20px" height="120">
     <br>
     <br>
-    <h2>${user.name}</h2>
+    <h2>${user.username}</h2>
     <br>
     Электоронная почта: <b>${user.email}</b>
     <br>
