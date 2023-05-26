@@ -14,7 +14,6 @@
         </div>
         <div class="form-group col-md-10">
             <label for="searchWord">Поиск по объявлениям</label>
-
             <input type="text" name="searchWord" <#if searchWord??>value="${searchWord}"</#if> class="form-control"
         id="searchWord">
     </div>
