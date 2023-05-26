@@ -16,13 +16,13 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String email;
     private String phoneNumber;
     private String name;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "image_id")
     private Image avatar;
     private boolean active;
+    private String email;
     private String activationCode;
     @Column(length = 1000)
     private String password;

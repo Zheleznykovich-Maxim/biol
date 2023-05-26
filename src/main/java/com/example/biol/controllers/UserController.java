@@ -44,6 +44,17 @@ public class UserController {
         }
         return "redirect:/login";
     }
+    @GetMapping("/activate/{code}")
+    public String activate(Model model, @PathVariable String code, Principal principal) {
+        boolean isActivated = userService.activateUser(code);
+        if (isActivated) {
+            model.addAttribute("message", "User successfully activated");
+        } else {
+            model.addAttribute("message", "Activation code is not found");
+        }
+        model.addAttribute("user", userService.getUserByPrincipal(principal));
+        return "login";
+    }
 
     @GetMapping("/user/{user}")
     public String userInfo(@PathVariable("user") User user, Model model, Principal principal) {

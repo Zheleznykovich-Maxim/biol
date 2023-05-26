@@ -25,15 +25,14 @@ public class SecurityConfig  {
         return http
                 .requestCache().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/product/**", "/images/**", "/registration", "/user/**", "/static/**")
+                .antMatchers("/", "/product/**", "/images/**", "/registration", "/user/**",
+                        "/static/**", "/activate/*")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
+                .formLogin((form) -> form
                 .loginPage("/login")
-                .permitAll()
-                .and()
-
+                .permitAll())
                 .logout()
                 .permitAll()
 
