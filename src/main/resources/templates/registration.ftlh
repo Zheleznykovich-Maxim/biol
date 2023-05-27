@@ -17,7 +17,12 @@
     </div>
     <div class="form-group">
         <label for="password">Пароль</label>
-        <input type="password" class="form-control" id="password" required name="password">
+        <input type="password" class="form-control <#if springBindingResult?has_content && springBindingResult.fieldError?has_content && springBindingResult.fieldError.field == "password">is-invalid</#if>" id="password" required name="password">
+        <#if springBindingResult?has_content && springBindingResult.fieldError?has_content && springBindingResult.fieldError.field == "password">
+            <div class="invalid-feedback">
+                ${springBindingResult.fieldError.defaultMessage}
+            </div>
+        </#if>
     </div>
     <input type="hidden" name="_csrf" value="${_csrf.token}">
     <button type="submit" style="width: 100%" class="btn btn-dark">Зарегистрироваться</button>

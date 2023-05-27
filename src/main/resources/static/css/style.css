@@ -7,3 +7,11 @@
     color: #000 !important;
     text-decoration: none
 }
+
+.is-invalid {
+    border-color: red;
+}
+
+.invalid-feedback {
+    color: red;
+}
