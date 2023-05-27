@@ -25,7 +25,7 @@
         </div>
         <div class="form-group">
             <label for="city">Город</label>
-            <select id="city" name="city" class="form-control">
+            <select id="city" name="city" class="form-control" required>
                 <option value="">Город не выбран</option>
                 <option value="Гродно">Гродно</option>
                 <option value="Минск">Минск</option>
@@ -88,4 +88,23 @@
     <h1 style="text-align: center">Не найдено</h1>
 </#list>
 </div>
+
+<script>
+  // Получаем все элементы input типа file
+  const fileInputs = document.querySelectorAll('input[type="file"]');
+
+  // Перебираем каждый элемент input
+  fileInputs.forEach(fileInput => {
+    const fileLabel = fileInput.nextElementSibling;
+
+    // Добавляем обработчик события change
+    fileInput.addEventListener('change', function() {
+      const files = Array.from(this.files);
+      const fileNames = files.map(file => file.name);
+
+      // Обновляем текстовое содержимое метки с именем файла
+      fileLabel.textContent = fileNames.join(', ');
+    });
+  });
+</script>
 </@t.template>
