@@ -12,9 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -25,7 +27,19 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
 
-    public static void saveFile(MultipartFile file, Product product) {
+    public void saveFile(MultipartFile file, Image image) throws IOException {
+        if (!file.isEmpty()) {
+            File uploadDir = new File(uploadPath);
+
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
+            }
+
+            String uuidFile = UUID.randomUUID().toString();
+            String resultFilename = uuidFile + "." + file.getOriginalFilename();
+            file.transferTo(new File(uploadPath + "/" + resultFilename));
+            image.setFilePath(uploadPath + "/" + resultFilename);
+        }
     }
 
     public List<Product> FindProducts(String title, String city) {
@@ -56,6 +70,7 @@ public class ProductService {
                 if (i == 0) {
                     image.setPreviewImage(true);
                 }
+                saveFile(file, image);
                 product.addImageToProduct(image);
             }
         }
@@ -77,7 +92,6 @@ public class ProductService {
         image.setOriginalFileName(file.getOriginalFilename());
         image.setContentType(file.getContentType());
         image.setSize(file.getSize());
-        image.setBytes(file.getBytes());
         return image;
     }
 

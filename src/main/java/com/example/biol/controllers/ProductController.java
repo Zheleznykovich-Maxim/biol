@@ -57,23 +57,7 @@ public class ProductController {
                                 Product product,
                                 Principal principal) throws Exception {
 //        ProductService.saveFile()
-//        if (!file.isEmpty()) {
-//            File uploadDir = new File(uploadPath);
 //
-//            if (!uploadDir.exists()) {
-//                uploadDir.mkdir();
-//            }
-//
-//            String uuidFile = UUID.randomUUID().toString();
-//            String resultFilename = uuidFile + "." + file.getOriginalFilename();
-//            file.transferTo(new File(uploadPath + "/" + resultFilename));
-//
-//            message.setFilename(resultFilename);
-//        }
-//
-//        model.addAttribute("message", null);
-//
-//        messageRepository.save(message);
         productService.saveProduct(principal, product, file1, file2, file3);
         return "redirect:/my/products";
     }
