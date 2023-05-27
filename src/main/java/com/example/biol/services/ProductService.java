@@ -7,7 +7,9 @@ import com.example.biol.repositories.ProductRepository;
 import com.example.biol.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
@@ -18,14 +20,30 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class ProductService {
-
+    @Value("${upload.path}")
+    private String uploadPath;
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
 
-    public List<Product> listProducts(String title) {
-        if (title != null && !title.isEmpty()) return productRepository.findByTitle(title);
+    public static void saveFile(MultipartFile file, Product product) {
+    }
+
+    public List<Product> FindProducts(String title, String city) {
+        if (StringUtils.hasText(title) && StringUtils.hasText(city)) {
+            return productRepository.findByTitleAndCity(title, city);
+        }
+
+        if (StringUtils.hasText(title)) {
+            return productRepository.findByTitle(title);
+        }
+
+        if (StringUtils.hasText(city)) {
+            return productRepository.findByCity(city);
+        }
+
         return productRepository.findAll();
     }
+
 
     public void saveProduct(Principal principal, Product product, MultipartFile file1, MultipartFile file2, MultipartFile file3) throws Exception {
         product.setUser(getUserByPrincipal(principal));

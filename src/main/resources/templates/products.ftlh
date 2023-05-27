@@ -5,22 +5,27 @@
     <div class="form-row">
         <div class="form-group col-md-2">
             <label for="searchCity">Город</label>
-            <select id="searchCity" class="form-control">
+            <select id="searchCity" name="searchCity" class="form-control">
                 <option value="">Город не выбран</option>
-                <option value="Москва">Москва</option>
-                <option value="Красноярск">Красноярск</option>
-                <option value="Казань">Казань</option>
+                <option value="Гродно">Гродно</option>
+                <option value="Минск">Минск</option>
+                <option value="Витебск">Витебск</option>
+                <option value="Брест">Брест</option>
+                <option value="Гомель">Гомель</option>
             </select>
         </div>
+
         <div class="form-group col-md-10">
             <label for="searchWord">Поиск по объявлениям</label>
-            <input type="text" name="searchWord" <#if searchWord??>value="${searchWord}"</#if> class="form-control"
-        id="searchWord">
-    </div>
-    <button style="width: 100%" type="submit" class="btn btn-dark">Поиск</button>
+            <input type="text" name="searchWord" <#if searchWord??> value="${searchWord}"</#if> class="form-control" id="searchWord">
+        </div>
+        <button style="width: 100%" type="submit" class="btn btn-dark">Поиск</button>
     </div>
 </form>
 <hr>
+<#if searchCity?has_content>
+    <p style="text-align: center mb-5">Поиск по запросу: ${searchCity}</p>
+</#if>
 <div class="card-columns">
     <#list products as product>
     <a href="/product/${product.id}" class="product-link">
@@ -39,6 +44,6 @@
     </a>
     <#else>
     <h1 style="text-align: center">Не найдено</h1>
-</#list>
+    </#list>
 </div>
 </@t.template>

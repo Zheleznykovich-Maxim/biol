@@ -7,13 +7,13 @@
          style="border:2px solid black; border-radius: 20px" height="120">
     <br>
     <br>
-    <h2>${user.name}</h2>
+    <h2>${user.username}</h2>
     <br>
     Номер телефона: <b>${user.phoneNumber}</b>
 </div>
 <br>
 <hr>
-<h1 style="text-align: center">Товары пользователя ${user.name}</h1>
+<h1 style="text-align: center">Товары пользователя ${user.username}</h1>
 <br>
 <div class="card-columns">
     <#list products as product>
@@ -27,7 +27,7 @@
                 <p class="card-text">${product.price} ₽</p>
             </div>
             <div class="card-footer">
-                ${product.user.name}
+                ${product.user.username}
             </div>
         </div>
     </a>

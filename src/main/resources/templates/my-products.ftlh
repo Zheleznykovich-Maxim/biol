@@ -19,19 +19,19 @@
             <div class="input-group mb-3">
                 <input type="number" required class="form-control" id="price" name="price">
                 <div class="input-group-append">
-                    <span class="input-group-text">₽</span>
+                    <span class="input-group-text">руб.</span>
                 </div>
             </div>
         </div>
         <div class="form-group">
-            <label for="searchCity">Город</label>
-            <select id="searchCity" required name="city" class="form-control">
+            <label for="city">Город</label>
+            <select id="city" name="city" class="form-control">
                 <option value="">Город не выбран</option>
-
-                <option value="Москва">Москва</option>
-                <option value="Красноярск">Красноярск</option>
-                <option value="Казань">Казань</option>
-
+                <option value="Гродно">Гродно</option>
+                <option value="Минск">Минск</option>
+                <option value="Витебск">Витебск</option>
+                <option value="Брест">Брест</option>
+                <option value="Гомель">Гомель</option>
             </select>
         </div>
         <div class="form-group">

@@ -4,6 +4,7 @@ import com.example.biol.models.Product;
 import com.example.biol.models.User;
 import com.example.biol.services.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,20 +13,30 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
 
+    @Value("${upload.path}")
+    private String uploadPath;
     @GetMapping("/")
-    public String products(@RequestParam(name = "searchWord", required = false) String title, Principal principal,
-                           Model model) {
-        model.addAttribute("products", productService.listProducts(title));
+    public String products(@RequestParam(name = "searchCity", required = false) String city,
+            @RequestParam(name = "searchWord", required = false) String title,
+                           Principal principal,
+                           Model model, HttpSession session) {
+        model.addAttribute("products", productService.FindProducts(title, city));
         model.addAttribute("user", productService.getUserByPrincipal(principal));
         model.addAttribute("searchWord", title);
+        model.addAttribute("searchCity", city);
         return "products";
     }
 
@@ -45,6 +56,24 @@ public class ProductController {
                                 @RequestParam("file3") MultipartFile file3,
                                 Product product,
                                 Principal principal) throws Exception {
+//        ProductService.saveFile()
+//        if (!file.isEmpty()) {
+//            File uploadDir = new File(uploadPath);
+//
+//            if (!uploadDir.exists()) {
+//                uploadDir.mkdir();
+//            }
+//
+//            String uuidFile = UUID.randomUUID().toString();
+//            String resultFilename = uuidFile + "." + file.getOriginalFilename();
+//            file.transferTo(new File(uploadPath + "/" + resultFilename));
+//
+//            message.setFilename(resultFilename);
+//        }
+//
+//        model.addAttribute("message", null);
+//
+//        messageRepository.save(message);
         productService.saveProduct(principal, product, file1, file2, file3);
         return "redirect:/my/products";
     }

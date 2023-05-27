@@ -32,7 +32,7 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true,
             mappedBy = "user")
     private List<Product> productList = new ArrayList<>();
 
