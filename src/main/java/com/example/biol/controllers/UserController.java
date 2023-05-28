@@ -41,7 +41,7 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public String createUser(@Validated User user, BindingResult bindingResult, Model model) {
+    public String createUser(@Valid User user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("springBindingResult", bindingResult);
             model.addAttribute("user", user);
