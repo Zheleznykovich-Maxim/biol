@@ -33,8 +33,8 @@ public class User implements UserDetails {
     private String email;
     private String activationCode;
     @Column(length = 1000)
-//    @Size(min = 6, max = 20, message = "Пароль должен содержать от 6 до 20 символов")
-//    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$", message = "Пароль должен содержать хотя бы одну прописную букву, одну заглавную букву и одну цифру")
+    @Size(min = 6, message = "Пароль должен содержать от 6 до 20 символов")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$", message = "Пароль должен содержать хотя бы одну прописную букву, одну заглавную букву и одну цифру")
     private String password;
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role",
