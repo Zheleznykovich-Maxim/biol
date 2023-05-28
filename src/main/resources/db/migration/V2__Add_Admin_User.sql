@@ -1,14 +1,9 @@
--- migration V2__Add_Admin_User.sql
-
 -- Добавление пользователя
 INSERT INTO users (active, email, password, activation_code, phone_number, username, image_id)
-VALUES (true, 'admin@example.com', 'password', null, '+123456789', 'admin', null);
+VALUES (true, 'admin@example.com', 'Admin123', null, '+375295895061', 'admin', null);
 
--- Получение идентификатора добавленного пользователя
-SET @user_id = LAST_INSERT_ID();
-
--- Присвоение роли ROLE_ADMIN
+-- Присвоение ролей ROLE_ADMIN и ROLE_USER
 INSERT INTO user_role (user_id, roles)
-VALUES (@user_id, 'ROLE_ADMIN');
+VALUES (LAST_INSERT_ID(), 'ROLE_ADMIN'), (LAST_INSERT_ID(), 'ROLE_USER');
 
 COMMIT;
