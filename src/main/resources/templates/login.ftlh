@@ -5,7 +5,7 @@
 <p class="fst-italic text-center fs-4">${message!""}</p>
 <form action="/login " method="post">
     <div class="form-group">
-        <label for="name">Электронная почта</label>
+        <label for="name">Имя пользователя</label>
         <input type="text" class="form-control <#if RequestParameters.error??>is-invalid</#if>" id="name" name="username">
         <div id="name" class="invalid-feedback">
             Неверныя электронная почта
