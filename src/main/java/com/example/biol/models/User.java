@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -18,7 +19,10 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+//    @Pattern(regexp = "^\\+375\\d{9}$", message = "Номер телефона должен быть в формате +375XXXXXXXXX")
     private String phoneNumber;
+    @Size(min = 3, max = 20, message = "Имя пользователя должно содержать от 3 до 20 символов")
+//    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Имя пользователя может содержать только буквы и цифры")
     private String username;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "image_id")
@@ -27,7 +31,8 @@ public class User implements UserDetails {
     private String email;
     private String activationCode;
     @Column(length = 1000)
-    @Size(min = 6, message = "Пароль должен содержать больше 6 символов")
+    @Size(min = 6, max = 20, message = "Пароль должен содержать от 6 до 20 символов")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$", message = "Пароль должен содержать хотя бы одну прописную букву, одну заглавную букву и одну цифру")
     private String password;
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role",

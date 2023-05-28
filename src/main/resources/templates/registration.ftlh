@@ -5,9 +5,21 @@
 <form action="/registration" method="post">
     <div class="form-group">
         <label for="username">Имя пользователя</label>
-        <input type="text" class="form-control" required id="username" name="username">
+        <input type="text" value="${user.username!}" class="form-control
+    <#if springBindingResult?has_content && springBindingResult.hasFieldErrors("username")>is-invalid
+        <#elseif springBindingResult?has_content && !springBindingResult.hasFieldErrors("username")>is-valid
+    </#if>" required id="username" name="username">
+    <#if springBindingResult?has_content && springBindingResult.hasFieldErrors("username")>
+    <div class="invalid-feedback">
+        <#list springBindingResult.getFieldErrors("username") as error>
+        ${error.defaultMessage}<br>
+    </#list>
     </div>
-    <div class="form-group">
+</#if>
+</div>
+
+
+<div class="form-group">
         <label for="email">Электронная почта</label>
         <input type="email" class="form-control" id="email" required name="email">
     </div>
@@ -17,10 +29,15 @@
     </div>
     <div class="form-group">
         <label for="password">Пароль</label>
-        <input type="password" class="form-control <#if springBindingResult?has_content && springBindingResult.fieldError?has_content && springBindingResult.fieldError.field == "password">is-invalid</#if>" id="password" required name="password">
-        <#if springBindingResult?has_content && springBindingResult.fieldError?has_content && springBindingResult.fieldError.field == "password">
+        <input type="password" value="${user.password!}" class="form-control
+        <#if springBindingResult?has_content && springBindingResult.hasFieldErrors("password")>is-invalid
+        <#elseif springBindingResult?has_content && !springBindingResult.hasFieldErrors("password")>is-valid
+        </#if>" id="password" required name="password">
+        <#if springBindingResult?has_content && springBindingResult.hasFieldErrors("password")>
             <div class="invalid-feedback">
-                ${springBindingResult.fieldError.defaultMessage}
+                <#list springBindingResult.getFieldErrors("password") as error>
+                    ${error.defaultMessage}<br>
+                </#list>
             </div>
         </#if>
     </div>
@@ -30,4 +47,28 @@
 <#if errorMessage??>
 <h2 style="color: red">${errorMessage}</h2>
 </#if>
+<script>
+    // Обработчик события загрузки страницы
+    window.addEventListener('load', function () {
+        // Получение ссылки на форму регистрации по ее идентификатору
+        const form = document.getElementById('registrationForm');
+
+        // Обработчик события отправки формы
+        form.addEventListener('submit', function (event) {
+            // Отмена стандартной отправки формы
+            event.preventDefault();
+
+            // Проверка валидности формы
+            const isValid = form.checkValidity();
+
+            // Добавление класса 'was-validated' к форме для применения стилей
+            form.classList.add('was-validated');
+
+            // Если форма валидна, продолжить отправку формы
+            if (isValid) {
+                form.submit();
+            }
+        });
+    });
+</script>
 </@t.template>
