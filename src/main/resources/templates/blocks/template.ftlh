@@ -13,7 +13,7 @@
     <title>BIOL</title>
 </head>
 <body>
-<nav class="navbar navbar-dark bg-dark">
+<nav class="navbar navbar-dark bg-green">
     <div class="container-fluid">
         <a href="/">
             <span class="navbar-brand mb-0 h1">BIOL</span>

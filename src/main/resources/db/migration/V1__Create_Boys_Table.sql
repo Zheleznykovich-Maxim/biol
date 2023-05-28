@@ -1,0 +1,6 @@
+CREATE TABLE boys (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    age INT NOT NULL,
+    city VARCHAR(50) NOT NULL
+);
